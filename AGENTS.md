@@ -47,4 +47,4 @@ Redis adds a failure domain without solving a current constraint.
 - Rule conflicts resolve in this order: explicit user instruction > this file > repo convention.
 - Write minimal code: prefer standard library and native runtime APIs, avoid unrequested abstractions, and produce the shortest working diff.
 - Do not claim completion without evidence: a passing command and its output, or a file path and line number. Restate completed work concisely.
-- Run scratch scripts with `bun`. Inside a repo, use the runner its lockfile or `package.json` declares.
+- Use the tooling the project already declares; install a new tool only when nothing present does the job. For throwaway work use what is already installed (`bun` for a quick script).
