@@ -5,6 +5,7 @@
 ## Run it
 
 - Preview with `python3 harness-sync.py --dry-run --diff`. A real run writes config files and may run `sudo pacman -S opencode`, so run it only when the user asks.
+- The `harness-sync.py` command is a symlink at `~/.local/bin/harness-sync.py` that points into this folder; repoint it if the file moves.
 - Targets come from the harness table in `catalog.md` (`--catalog`), not from this folder.
 - To test a function, load the file with `importlib.util.spec_from_file_location`, add the module to `sys.modules`, then call `exec_module`. `@dataclass` fails without the `sys.modules` entry.
 
@@ -20,6 +21,8 @@
 
 ## Gotchas
 
+- Binary and extension updaters run through `run_interactive` and share the terminal, so sudo and update prompts work. Their output cannot be prefixed per line; pass `label=` so a `-> pi: extensions` line names the owner first. Keep them out of `step()`.
+- npm audit warnings (for example "2 high severity vulnerabilities") in updater output come from npm, not from this script.
 - Both gateways return 403 to the default `python-urllib` User-Agent, so `USER_AGENT` is set.
 - The opencode JSONC file is reserialized with `json.dumps`, so its comments are lost on every change.
 - `write_atomic` replaces the target file, so a symlinked config becomes a regular file.
